@@ -1,0 +1,31 @@
+#head {
+    width: 750px;
+    text-align: center;
+    font-size: 20;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+table.type01 {
+    border-collapse: collapse;
+    line-height: 0.55;
+    margin : 20px 10px;
+    font-size: 14;
+}
+
+table.type01 th {
+    width: 100px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+table.type01 td {
+    width: 100px;
+    padding: 10px;
+    vertical-align: top;
+    border: 1px solid #ccc;
+    text-align: right;
+}
