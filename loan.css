@@ -1,20 +1,40 @@
-#head {
-    width: 750px;
+#loanDiv {
+    width : 700px;
+}
+
+.head {
+    width: 690px;
     text-align: center;
     font-size: 20;
     font-weight: 600;
-    margin-top: 15px;
+    margin-top: 20px;
+}
+
+.search {
+    width: 320px;
+    height: 60px;
+    text-align: left;
+    font-size: 20;
+    font-weight: 600;
+    margin-top: 5px;
+    float : left;
+    padding-left : 10px;
+    padding-right : 10px;
+}
+
+#contents {
+    float : both;
 }
 
 table.type01 {
     border-collapse: collapse;
-    line-height: 0.55;
+    line-height: 0.5;
     margin : 20px 10px;
     font-size: 14;
 }
 
 table.type01 th {
-    width: 100px;
+    width: 90px;
     padding: 10px;
     font-weight: bold;
     vertical-align: top;
@@ -23,9 +43,13 @@ table.type01 th {
 }
 
 table.type01 td {
-    width: 100px;
+    width: 90px;
     padding: 10px;
     vertical-align: top;
     border: 1px solid #ccc;
     text-align: right;
+}
+
+table.type01 tr:nth-child(even) {
+    background-color : #efefef;
 }
