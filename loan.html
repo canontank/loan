@@ -10,22 +10,20 @@
     </head>
 
     <body>
-        <div id="loanDiv">
+        <div class="loan">
             <div class="head">
                 <p>부평역 화성파크드림 중도금 대출 이자 계산</p>
             </div>
             <div class="search">
                 <select id="type" class="wide">
-                    <option value=31900000>59㎡ 저층</option>
-                    <option value=32300000 selected>59㎡ 중층</option>
-                    <option value=32700000>59㎡ 고층</option>
                 </select>
             </div>
             <div class="search">
-                <input id="date" type="date" value="2021-02-28" min="2018-10-10" max="2021-02-28" onkeydown="return false">
+                <select id="date" class="wide">
+                </select>
             </div>
-            <div id="contents">
-                <table id="loan" class="type01"></table>    
+            <div class="main">
+                <table id="contents" class="contents"></table>
             </div>
         </div>
     </body>

@@ -1,10 +1,10 @@
 $(document).ready(function() {
-	init();
+	setTypeValue();
+	setDateValue();
+	setBind();
 	execute();
 });
 
-var minDate = "2018-10-10";
-var maxDate = "2021-02-28";
 var inputEndDateStr = "2021-02-28";
 var pay = 32300000;
 var payDateArr = new Array( "2018-10-10", "2019-02-10", "2019-06-10", "2019-11-10", "2020-03-10", "2020-07-10" );
@@ -17,31 +17,57 @@ var interestRateArr = new Array(
 );
 var totalInterest = 0;
 
-function init() {
+function setTypeValue() {
+	$('#type').append($('<option/>', { value : 32700000, text : '59㎡ 고층' }));
+	$('#type').append($('<option/>', { value : 32300000, text : '59㎡ 중층' }));
+	$('#type').append($('<option/>', { value : 31900000, text : '59㎡ 저층' }));
+	$('#type').append($('<option/>', { value : 31300000, text : '59㎡ 3층' }));
+	$('#type').append($('<option/>', { value : 38600000, text : '75㎡ A 고층' }));
+	$('#type').append($('<option/>', { value : 38100000, text : '75㎡ A 중층' }));
+	$('#type').append($('<option/>', { value : 37800000, text : '75㎡ A 저층' }));
+	$('#type').append($('<option/>', { value : 37000000, text : '75㎡ A 3층' }));
+	$('#type').append($('<option/>', { value : 36600000, text : '75㎡ A 2층' }));
+	$('#type').append($('<option/>', { value : 38200000, text : '75㎡ B 고층' }));
+	$('#type').append($('<option/>', { value : 37700000, text : '75㎡ B 중층' }));
+	$('#type').append($('<option/>', { value : 37300000, text : '75㎡ B 저층' }));
+	$('#type').append($('<option/>', { value : 36600000, text : '75㎡ B 3층' }));
+	$('#type').append($('<option/>', { value : 36200000, text : '75㎡ B 2층' }));
+	$('#type').append($('<option/>', { value : 41400000, text : '84㎡ B 고층' }));
+	$('#type').append($('<option/>', { value : 40700000, text : '84㎡ B 중층' }));
+	$('#type').append($('<option/>', { value : 40300000, text : '84㎡ B 저층' }));
+	$('#type').append($('<option/>', { value : 39500000, text : '84㎡ B 3층' }));
+	$('#type').append($('<option/>', { value : 39100000, text : '84㎡ B 2층' }));
+	$('#type').val(pay);
+}
+
+function setDateValue() {
+	for (var i = 0; i < 120; i++) {
+		var tempDate = getDateStr(new Date(2020, 11 - 1, i + 1));
+		$('#date').append($('<option/>', { value : tempDate, text : tempDate }));
+	}
+	$('#date').val(inputEndDateStr);
+}
+
+function setBind() {
 	$('#type').niceSelect();
 	$('#type').change(function() {
 		pay = +($(this).val());
-		$('#loan tr').remove();
 		execute();
 	});
+	$('#date').niceSelect();
 	$('#date').change(function() {
-		if ($(this).val() < minDate || $(this).val() > maxDate) {
-			$(this).val(maxDate);
-		}
 		inputEndDateStr = $(this).val();
-		$('#loan tr').remove();
 		execute();
 	});
 }
 
 function execute() {
+	$('#contents tr').remove();
 	totalInterest = 0;
 	appendTitle();
 	for (var i = 0; ; i++) {
 		var startDate = getStartDate(payDateArr[0].split("-"), i);
 		var endDate = getEndDate(payDateArr[0].split("-"), i);
-		if (getDateStr(startDate) > inputEndDateStr)
-			break;
 		var totalPay = getTotalPay(startDate);
 		var interestRate = getInterestRate(startDate);
 		var interest = getInterest(startDate, endDate, totalPay, interestRate);
@@ -60,7 +86,7 @@ function appendTitle() {
 	row.append($('<th/>', { text : '금리' }));
 	row.append($('<th/>', { text : '이자' }));
 	row.append($('<th/>', { text : '누적 이자' }));
-	$('#loan').append(row);
+	$('#contents').append(row);
 }
 
 function getStartDate(dateArr, setMonth) {
@@ -162,5 +188,5 @@ function appendContents(startDate, endDate, totalPay, interestRate, interest) {
 	row.append($('<td/>', { text : interestRate }));
 	row.append($('<td/>', { text : $.number(interest) }));
 	row.append($('<td/>', { text : $.number(totalInterest) }));
-	$('#loan').append(row);
+	$('#contents').append(row);
 }

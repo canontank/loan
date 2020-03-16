@@ -1,4 +1,4 @@
-#loanDiv {
+.loan {
     width : 700px;
 }
 
@@ -11,7 +11,7 @@
 }
 
 .search {
-    width: 320px;
+    width: 324px;
     height: 60px;
     text-align: left;
     font-size: 20;
@@ -22,18 +22,14 @@
     padding-right : 10px;
 }
 
-#contents {
-    float : both;
-}
-
-table.type01 {
+.contents {
     border-collapse: collapse;
-    line-height: 0.5;
+    line-height: 0.45;
     margin : 20px 10px;
     font-size: 14;
 }
 
-table.type01 th {
+.contents th {
     width: 90px;
     padding: 10px;
     font-weight: bold;
@@ -42,7 +38,7 @@ table.type01 th {
     text-align: center;
 }
 
-table.type01 td {
+.contents td {
     width: 90px;
     padding: 10px;
     vertical-align: top;
@@ -50,6 +46,11 @@ table.type01 td {
     text-align: right;
 }
 
-table.type01 tr:nth-child(even) {
+.contents tr:nth-child(even) {
     background-color : #efefef;
+}
+
+.nice-select .list {
+    max-height: 800px;
+    overflow-y: auto;
 }
