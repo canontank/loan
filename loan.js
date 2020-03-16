@@ -1,12 +1,7 @@
-$(document).ready(function() {
-	setTypeValue();
-	setDateValue();
-	setBind();
-	execute();
-});
-
-var inputEndDateStr = "2021-02-28";
-var pay = 32300000;
+var inputPay = 0;
+var inputRepayDateStr = "";
+var minRepayDateStr = "2020-11-01";
+var maxRepayDateStr = "2021-02-28";
 var payDateArr = new Array( "2018-10-10", "2019-02-10", "2019-06-10", "2019-11-10", "2020-03-10", "2020-07-10" );
 var interestRateArr = new Array(
 	new Array( "2018-10-10", 3.93 ),
@@ -17,7 +12,16 @@ var interestRateArr = new Array(
 );
 var totalInterest = 0;
 
+$(document).ready(function() {
+	setTypeValue();
+	setInputRepayDateStr();
+	setDateValue();
+	setBind();
+	execute();
+});
+
 function setTypeValue() {
+	inputPay = 32300000;
 	$('#type').append($('<option/>', { value : 32700000, text : '59㎡ 고층' }));
 	$('#type').append($('<option/>', { value : 32300000, text : '59㎡ 중층' }));
 	$('#type').append($('<option/>', { value : 31900000, text : '59㎡ 저층' }));
@@ -32,31 +36,49 @@ function setTypeValue() {
 	$('#type').append($('<option/>', { value : 37300000, text : '75㎡ B 저층' }));
 	$('#type').append($('<option/>', { value : 36600000, text : '75㎡ B 3층' }));
 	$('#type').append($('<option/>', { value : 36200000, text : '75㎡ B 2층' }));
-	$('#type').append($('<option/>', { value : 41400000, text : '84㎡ B 고층' }));
-	$('#type').append($('<option/>', { value : 40700000, text : '84㎡ B 중층' }));
-	$('#type').append($('<option/>', { value : 40300000, text : '84㎡ B 저층' }));
-	$('#type').append($('<option/>', { value : 39500000, text : '84㎡ B 3층' }));
-	$('#type').append($('<option/>', { value : 39100000, text : '84㎡ B 2층' }));
-	$('#type').val(pay);
+	$('#type').append($('<option/>', { value : 41400000, text : '84㎡ 고층' }));
+	$('#type').append($('<option/>', { value : 40700000, text : '84㎡ 중층' }));
+	$('#type').append($('<option/>', { value : 40300000, text : '84㎡ 저층' }));
+	$('#type').append($('<option/>', { value : 39500000, text : '84㎡ 3층' }));
+	$('#type').append($('<option/>', { value : 39100000, text : '84㎡ 2층' }));
+	$('#type').val(inputPay);
+}
+
+function setInputRepayDateStr() {
+	var todayStr = getDateStr(new Date());
+	if (todayStr < minRepayDateStr) {
+		todayStr = maxRepayDateStr;
+	} else if (minRepayDateStr <= todayStr && todayStr <= maxRepayDateStr) {
+		minRepayDateStr = todayStr;
+	} else {
+		minRepayDateStr = maxRepayDateStr;
+		todayStr = maxRepayDateStr;
+	}
+	inputRepayDateStr = todayStr;
 }
 
 function setDateValue() {
-	for (var i = 0; i < 120; i++) {
-		var tempDate = getDateStr(new Date(2020, 11 - 1, i + 1));
-		$('#date').append($('<option/>', { value : tempDate, text : tempDate }));
+	var minRepayDateArr = minRepayDateStr.split("-");
+	var count = 0;
+	while(1) {
+		var repayDate = getDateStr(new Date(minRepayDateArr[0], minRepayDateArr[1] - 1, (+minRepayDateArr[2] + count)));
+		$('#date').append($('<option/>', { value : repayDate, text : repayDate }));
+		if (repayDate == maxRepayDateStr)
+			break;
+		count++;
 	}
-	$('#date').val(inputEndDateStr);
+	$('#date').val(inputRepayDateStr);
 }
 
 function setBind() {
 	$('#type').niceSelect();
 	$('#type').change(function() {
-		pay = +($(this).val());
+		inputPay = +($(this).val());
 		execute();
 	});
 	$('#date').niceSelect();
 	$('#date').change(function() {
-		inputEndDateStr = $(this).val();
+		inputRepayDateStr = $(this).val();
 		execute();
 	});
 }
@@ -73,7 +95,7 @@ function execute() {
 		var interest = getInterest(startDate, endDate, totalPay, interestRate);
 		totalInterest += interest;
 		appendContents(startDate, endDate, totalPay, interestRate, interest);
-		if (getDateStr(endDate) == inputEndDateStr)
+		if (getDateStr(endDate) == inputRepayDateStr)
 			break;
 	}
 }
@@ -98,8 +120,8 @@ function getStartDate(dateArr, setMonth) {
 function getEndDate(dateArr, setMonth) {
 	var date = new Date(dateArr[0], dateArr[1], 9);
 	date.setMonth(date.getMonth() + setMonth);
-	if (getDateStr(date) > inputEndDateStr) {
-		return getDate(inputEndDateStr);
+	if (getDateStr(date) > inputRepayDateStr) {
+		return getDate(inputRepayDateStr);
 	}
 	return date;
 }
@@ -124,7 +146,7 @@ function getTotalPay(startDate) {
 	var startDateStr = getDateStr(startDate);
 	for (var i = 0; i < payDateArr.length; i++) {
 		if (payDateArr[i] <= startDateStr) {
-			totalPay += pay;
+			totalPay += inputPay;
 		}
 	}
 	return totalPay;
@@ -146,7 +168,7 @@ function getInterest(startDate, endDate, totalPay, interestRate) {
 	var startMonthInterest = startMonthDay != 0 ? (totalPay * startMonthDay / getDayOfYear(startDate) * (interestRate / 100)) : 0;
 	var endMonthDay = getEndMonthDay(startDate, endDate);
 	var endMonthInterest = endMonthDay != 0 ? (totalPay * endMonthDay / getDayOfYear(endDate) * (interestRate / 100)) : 0;
-	var oneDayInterest = isPayDateAndSunDay(startDate) ? (totalPay - pay) / getDayOfYear(startDate) * (getInterestRate(startDate) / 100) : 0;
+	var oneDayInterest = isPayDateAndSunDay(startDate) ? (totalPay - inputPay) / getDayOfYear(startDate) * (getInterestRate(startDate) / 100) : 0;
 	return Math.floor(startMonthInterest + endMonthInterest + oneDayInterest);
 }
 

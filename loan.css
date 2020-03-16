@@ -5,7 +5,7 @@
 .head {
     width: 690px;
     text-align: center;
-    font-size: 20;
+    font-size: 18px;
     font-weight: 600;
     margin-top: 20px;
 }
@@ -26,7 +26,7 @@
     border-collapse: collapse;
     line-height: 0.45;
     margin : 20px 10px;
-    font-size: 14;
+    font-size: 14px;
 }
 
 .contents th {
