@@ -220,7 +220,7 @@ function setSummaryContents(startDate, endDate, totalPay) {
 	row.append($('<td/>', { text : getDateStr(startDate), class : "hidden-xs" }));
 	row.append($('<td/>', { text : getDateStr(endDate) }));
 	row.append($('<td/>', { text : $.number(totalPay) }));
-	row.append($('<td/>', { text : $.number(totalInterest) }));
+	row.append($('<td/>', { text : $.number(totalInterest), style : 'color : blue;' }));
 	$('#summary').append(row);
 }
 
