@@ -1,30 +1,51 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>부평역 화성파크드림 중도금 대출 이자 계산</title>
-        <script type="text/javascript" src="jquery-1.7.min.js"></script>
-        <script type="text/javascript" src="jquery.number.min.js"></script>
-        <script type="text/javascript" src="jquery.nice-select.js"></script>
-        <script type="text/javascript" src="loan.js"></script>
-        <link type="text/css" rel="stylesheet" href="nice-select.css">
-        <link type="text/css" rel="stylesheet" href="loan.css">
+        <title>부평역 화성파크드림 중도금 대출 이자</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+        <script type="text/javascript" src="js/jquery.number.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script type="text/javascript" src="js/bootstrap-select.js"></script>
+        <script type="text/javascript" src="js/loan.js"></script>
+        <link type="text/css" rel="stylesheet" href="css/bootstrap.css">
+        <link type="text/css" rel="stylesheet" href="css/bootstrap-select.min.css">
+        <link type="text/css" rel="stylesheet" href="css/loan.css">
     </head>
 
     <body>
-        <div class="loan">
-            <div class="head">
-                <p>부평역 화성파크드림 중도금 대출 이자 계산</p>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#"><b>부평역 화성파크드림 중도금 대출 이자</b></a>
+                </div>
             </div>
-            <div class="search">
-                <select id="type" class="wide">
-                </select>
+        </nav>
+
+        <div class="container">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <div class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
+                        <select class="selectpicker form-control" id="type" title="Type">
+                        </select>
+                    </div>
+                    <div class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
+                        <select class="selectpicker form-control" id="date" title="Date">
+                        </select>
+                    </div>
+                </div>
+            </form>
+
+            <div class="row">
+                <div class="h-25 col-xs-12 col-sm-10 col-md-8 col-lg-6">
+                    <table id="summary" class="table text-right table-striped table-bordered"></table>
+                </div>
             </div>
-            <div class="search">
-                <select id="date" class="wide">
-                </select>
-            </div>
-            <div class="main">
-                <table id="contents" class="contents"></table>
+            
+            <div class="row">
+                <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+                    <table id="detail" class="table text-right table-striped table-bordered"></table>
+                </div>
             </div>
         </div>
     </body>
