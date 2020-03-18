@@ -7,9 +7,12 @@
         <script type="text/javascript" src="js/jquery.number.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
         <script type="text/javascript" src="js/bootstrap-select.js"></script>
+        <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" src="js/bootstrap-datepicker.ko.js"></script>
         <script type="text/javascript" src="js/loan.js"></script>
         <link type="text/css" rel="stylesheet" href="css/bootstrap.css">
         <link type="text/css" rel="stylesheet" href="css/bootstrap-select.min.css">
+        <link type="text/css" rel="stylesheet" href="css/bootstrap-datepicker.css">
         <link type="text/css" rel="stylesheet" href="css/loan.css">
     </head>
 
@@ -23,30 +26,32 @@
         </nav>
 
         <div class="container">
-            <form class="form-horizontal" role="form">
-                <div class="form-group">
-                    <div class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
-                        <select class="selectpicker form-control" id="type" title="Type">
-                        </select>
-                    </div>
-                    <div class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
-                        <select class="selectpicker form-control" id="date" title="Date">
-                        </select>
-                    </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
+                    <select id="type" class="selectpicker form-control" title="Type">
+                    </select>
                 </div>
-            </form>
+                <div class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
+                    <input type="text" id="date" class="form-control">
+                </div>
+            </div>
+            <div class="clear20"></div>
 
             <div class="row">
-                <div class="h-25 col-xs-12 col-sm-10 col-md-8 col-lg-6">
+                <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
                     <table id="summary" class="table text-right table-striped table-bordered"></table>
                 </div>
             </div>
-            
+            <div class="clear20"></div>
+        
             <div class="row">
                 <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
-                    <table id="detail" class="table text-right table-striped table-bordered"></table>
+                    <div style="overflow-y: auto; max-height: 100%">
+                        <table id="detail" class="table text-right table-striped table-bordered"></table>
+                    </div>
                 </div>
             </div>
+            <div class="clear20"></div>
         </div>
     </body>
 </html>
