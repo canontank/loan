@@ -1,8 +1,35 @@
-var inputPay = 0;
+var typeArr = new Array(
+	new Array( 32700000, "59㎡ 고층" ),
+	new Array( 32300000, "59㎡ 중층" ),
+	new Array( 31900000, "59㎡ 저층" ),
+	new Array( 31300000, "59㎡ 3층" ),
+
+	new Array( 38600000, "75㎡ A 고층" ),
+	new Array( 38100000, "75㎡ A 중층" ),
+	new Array( 37800000, "75㎡ A 저층" ),
+	new Array( 37000000, "75㎡ A 3층" ),
+	new Array( 36600000, "75㎡ A 2층" ),
+
+	new Array( 38200000, "75㎡ B 고층" ),
+	new Array( 37700000, "75㎡ B 중층" ),
+	new Array( 37300000, "75㎡ B 저층" ),
+	new Array( 36600000, "75㎡ B 3층" ),
+	new Array( 36200000, "75㎡ B 2층" ),
+
+	new Array( 41400000, "84㎡ 고층" ),
+	new Array( 40700000, "84㎡ 중층" ),
+	new Array( 40300000, "84㎡ 저층" ),
+	new Array( 39500000, "84㎡ 3층" ),
+	new Array( 39100000, "84㎡ 2층" )
+);
+
+var payDateArr = new Array( "2018-10-10", "2019-02-10", "2019-06-10", "2019-11-10", "2020-03-10", "2020-07-10" );
+var inputPay = 32300000;
+
 var inputRepayDateStr = "";
 var minRepayDateStr = "2020-11-01";
 var maxRepayDateStr = "2021-02-28";
-var payDateArr = new Array( "2018-10-10", "2019-02-10", "2019-06-10", "2019-11-10", "2020-03-10", "2020-07-10" );
+
 var interestRateArr = new Array(
 	new Array( "2018-10-10", 3.93 ),
 	new Array( "2019-04-10", 4.05 ),
@@ -13,77 +40,56 @@ var interestRateArr = new Array(
 var totalInterest = 0;
 
 $(document).ready(function() {
-	setTypeValue();
 	setInputRepayDateStr();
-	setDateValue();
-	setBind();
-	execute();
+	setType();
+	setDate();
+	calculate();
 });
-
-function setTypeValue() {
-	inputPay = 32300000;
-	$('#type').append($('<option/>', { value : 32700000, text : '59㎡ 고층' }));
-	$('#type').append($('<option/>', { value : 32300000, text : '59㎡ 중층' }));
-	$('#type').append($('<option/>', { value : 31900000, text : '59㎡ 저층' }));
-	$('#type').append($('<option/>', { value : 31300000, text : '59㎡ 3층' }));
-	$('#type').append($('<option/>', { value : 38600000, text : '75㎡ A 고층' }));
-	$('#type').append($('<option/>', { value : 38100000, text : '75㎡ A 중층' }));
-	$('#type').append($('<option/>', { value : 37800000, text : '75㎡ A 저층' }));
-	$('#type').append($('<option/>', { value : 37000000, text : '75㎡ A 3층' }));
-	$('#type').append($('<option/>', { value : 36600000, text : '75㎡ A 2층' }));
-	$('#type').append($('<option/>', { value : 38200000, text : '75㎡ B 고층' }));
-	$('#type').append($('<option/>', { value : 37700000, text : '75㎡ B 중층' }));
-	$('#type').append($('<option/>', { value : 37300000, text : '75㎡ B 저층' }));
-	$('#type').append($('<option/>', { value : 36600000, text : '75㎡ B 3층' }));
-	$('#type').append($('<option/>', { value : 36200000, text : '75㎡ B 2층' }));
-	$('#type').append($('<option/>', { value : 41400000, text : '84㎡ 고층' }));
-	$('#type').append($('<option/>', { value : 40700000, text : '84㎡ 중층' }));
-	$('#type').append($('<option/>', { value : 40300000, text : '84㎡ 저층' }));
-	$('#type').append($('<option/>', { value : 39500000, text : '84㎡ 3층' }));
-	$('#type').append($('<option/>', { value : 39100000, text : '84㎡ 2층' }));
-	$('#type').val(inputPay);
-}
 
 function setInputRepayDateStr() {
 	var todayStr = getDateStr(new Date());
 	if (todayStr < minRepayDateStr) {
-		todayStr = maxRepayDateStr;
+		inputRepayDateStr = maxRepayDateStr;
 	} else if (minRepayDateStr <= todayStr && todayStr <= maxRepayDateStr) {
 		minRepayDateStr = todayStr;
+		inputRepayDateStr = todayStr;
 	} else {
 		minRepayDateStr = maxRepayDateStr;
-		todayStr = maxRepayDateStr;
+		inputRepayDateStr = maxRepayDateStr;
 	}
-	inputRepayDateStr = todayStr;
 }
 
-function setDateValue() {
-	var minRepayDateArr = minRepayDateStr.split("-");
-	var count = 0;
-	while(1) {
-		var repayDate = getDateStr(new Date(minRepayDateArr[0], minRepayDateArr[1] - 1, (+minRepayDateArr[2] + count)));
-		$('#date').append($('<option/>', { value : repayDate, text : repayDate }));
-		if (repayDate == maxRepayDateStr)
-			break;
-		count++;
+function setType() {
+	for (var i = 0; i < typeArr.length; i++) {
+		var type = typeArr[i];
+		$('#type').append($('<option/>', { value : type[0], text : type[1] }));
 	}
-	$('#date').val(inputRepayDateStr);
-}
-
-function setBind() {
+	$('#type').val(inputPay);
 	$('#type').change(function() {
 		inputPay = +($(this).val());
-		execute();
-	});
-	$('#date').change(function() {
-		inputRepayDateStr = $(this).val();
-		execute();
+		calculate();
 	});
 }
 
-function execute() {
+function setDate() {
+	$('#date').datepicker({
+		title : "종료일",
+		format: "yyyy-mm-dd",
+		startDate: minRepayDateStr,
+		endDate: maxRepayDateStr,
+		autoclose : true,
+		language : "ko"
+	});
+	$('#date').datepicker('setDate', inputRepayDateStr);
+	$('#date').on("changeDate", function() {
+		inputRepayDateStr = $(this).val();
+		calculate();
+	});
+}
+
+function calculate() {
 	totalInterest = 0;
-	setTitle();
+	setDetailTitle();
 	for (var i = 0; ; i++) {
 		var startDate = getStartDate(payDateArr[0].split("-"), i);
 		var endDate = getEndDate(payDateArr[0].split("-"), i);
@@ -93,18 +99,14 @@ function execute() {
 		totalInterest += interest;
 		setDetailContents(startDate, endDate, totalPay, interestRate, interest);
 		if (getDateStr(endDate) == inputRepayDateStr)
-		break;
+			break;
 	}
-	setSummaryContents(new Date(payDateArr[0].split("-")), endDate, totalPay);
-}
-
-function setTitle() {
-	$('tr').remove();
 	setSummaryTitle();
-	setDetailTitle();
+	setSummaryContents(getStartDate(payDateArr[0].split("-"), 0), endDate, totalPay);
 }
 
 function setSummaryTitle() {
+	$('#summary tr').remove();
 	var row = $('<tr/>', {});
 	row.append($('<th/>', { text : '시작일', class : "hidden-xs" }));
 	row.append($('<th/>', { text : '종료일' }));
@@ -114,6 +116,7 @@ function setSummaryTitle() {
 }
 
 function setDetailTitle() {
+	$('#detail tr').remove();
 	var row = $('<tr/>', {});
 	row.append($('<th/>', { text : '시작일', class : "hidden-xs" }));
 	row.append($('<th/>', { text : '종료일' }));
