@@ -206,8 +206,11 @@ function getEndMonthDay(startDate, endDate) {
 }
 
 function isPayDateAndSunDay(date) {
-	if (payDateArr.indexOf(getDateStr(date) >= 0) && date.getDay() == 0)
-		return true;
+	for (var i = 0; i < payDateArr.length; i++) {
+		if (getDateStr(date) == payDateArr[i] && date.getDay() == 0) {
+			return true;
+		}
+	}
 	return false;
 }
 
