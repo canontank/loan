@@ -1,0 +1,34 @@
+body {
+    padding-top : 70px;
+}
+
+button {
+    height : 20px;
+    line-height : 8px;
+}
+
+.container {
+    margin-left : 0px;
+    margin-right : 0px;
+}
+
+.clear20 {
+    margin-top : 20px;
+}
+
+.table {
+    margin-bottom : 0px;
+}
+
+.table-bordered th {
+    text-align : center;
+}
+
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th, 
+.table-bordered > tfoot > tr > th, 
+.table-bordered > thead > tr > td, 
+.table-bordered > tbody > tr > td, 
+.table-bordered > tfoot > tr > td {
+    padding : 6px;
+}
