@@ -35,7 +35,7 @@ var interestRateArr = new Array(
 	new Array( "2019-04-10", 4.05 ),
 	new Array( "2019-10-10", 3.65 ),
 	new Array( "2020-04-10", 3.56 ),
-	new Array( "2020-10-10", 3.65 )
+	new Array( "2020-10-10", 3.56 )
 );
 var totalInterest = 0;
 
