@@ -51,10 +51,8 @@ function setInputRepayDateStr() {
 	if (todayStr < minRepayDateStr) {
 		inputRepayDateStr = maxRepayDateStr;
 	} else if (minRepayDateStr <= todayStr && todayStr <= maxRepayDateStr) {
-		minRepayDateStr = todayStr;
 		inputRepayDateStr = todayStr;
 	} else {
-		minRepayDateStr = maxRepayDateStr;
 		inputRepayDateStr = maxRepayDateStr;
 	}
 }
